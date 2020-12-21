@@ -8,7 +8,7 @@ import (
 func TestArrayList_Set(t *testing.T) {
 	// case1: out of range
 	name1 := "out of range"
-	list := NewArrayList()
+	list := NewArrayList(8)
 	wantErr := list.Set(1, 100)
 	if wantErr != nil {
 		t.Log("success, list.String() = ", list.String())
@@ -18,7 +18,7 @@ func TestArrayList_Set(t *testing.T) {
 
 	// case2: normal
 	name2 := "normal"
-	list2 := NewArrayList()
+	list2 := NewArrayList(8)
 	list2.Append("str1")
 	list2.Append("str2")
 	list2.Append("str3")
@@ -31,7 +31,7 @@ func TestArrayList_Set(t *testing.T) {
 }
 
 func TestArrayList_Iterator(t *testing.T) {
-	list := NewArrayList()
+	list := NewArrayList(8)
 	list.Append("str1")
 	list.Append("str2")
 	list.Append("str3")

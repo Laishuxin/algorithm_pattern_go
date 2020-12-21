@@ -2,20 +2,9 @@ package ArrayList
 
 import "errors"
 
-type Iterator interface {
-	HasNext() bool
-	Next() (interface{}, error)
-	Remove()
-	GetIndex() int
-}
-
-type Iterable interface {
-	Iterator() Iterator
-}
-
 type ArrayListIterator struct {
 	list         *ArrayList
-	currentIndex int
+	currentIndex uint
 }
 
 func (it *ArrayListIterator) HasNext() bool {
@@ -36,6 +25,6 @@ func (it *ArrayListIterator) Remove() {
 	_ = it.list.Delete(it.currentIndex)
 }
 
-func (it *ArrayListIterator) GetIndex() int {
+func (it *ArrayListIterator) GetIndex() uint {
 	return it.currentIndex
 }
