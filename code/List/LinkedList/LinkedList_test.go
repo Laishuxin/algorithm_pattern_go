@@ -87,3 +87,16 @@ func TestLinkedList_Delete(t *testing.T) {
 	list.Delete(2)
 	fmt.Println(list.String())
 }
+
+func TestLinkedList_Iterator(t *testing.T) {
+	list := NewLinkedList()
+	list.Append("1")
+	list.Append("2")
+	list.Append("3")
+	list.Append("4")
+	list.Append("5")
+	it := list.Iterator()
+	for it.HasNext() {
+		fmt.Println(it.Next())
+	}
+}

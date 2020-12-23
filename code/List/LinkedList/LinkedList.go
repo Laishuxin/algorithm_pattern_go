@@ -166,7 +166,7 @@ func (list *LinkedList) String() string {
 }
 
 func (list *LinkedList) Iterator() List.Iterator {
-	return nil
+	return NewLinkedListIterator(list)
 }
 
 // ==== 私有方法 ====
