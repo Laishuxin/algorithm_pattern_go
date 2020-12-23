@@ -34,6 +34,20 @@ func (list *LinkedList) Get(index uint) (interface{}, error) {
 	return node.data, nil
 }
 
+func (list *LinkedList) Front() (interface{},error) {
+	if (list.IsEmpty()) {
+		return nil, List.ErrEmptyList
+	}
+	return list.head.data, nil
+}
+
+func (list *LinkedList) Rear() (interface{}, error) {
+	if (list.IsEmpty()) {
+		return nil, List.ErrEmptyList
+	}
+	return list.rear.data, nil
+}
+
 func (list *LinkedList) Set(index uint, newVal interface{}) error {
 	node := list.locateNode(index)
 	if node == nil {
