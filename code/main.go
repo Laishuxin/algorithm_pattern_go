@@ -1,10 +1,12 @@
 package main
 
 import (
+	"code/Practice/QueuePractice"
 	"code/Practice/StackPractice"
 	"fmt"
 )
 
+// ==== Stack Practice ====
 func ExecuteStackPractice() {
 	files := make([]string, 0, 20)
 	//files, _ = StackPractice.GetAllFile("D:\\markdown_notebook\\algorithm_pattern_go\\code", files);
@@ -23,7 +25,21 @@ func ExecuteStackPractice2() {
 	}
 }
 
+// ==== Queue Practice ====
+func ExecuteQueuePractice1() {
+	files := make([]string, 0, 20)
+	files, _ = QueuePractice.GetAllFiles("D:\\markdown_notebook\\algorithm_pattern_go\\code\\List", files);
+	for _, file := range files {
+		fmt.Println(file)
+	}
+}
+
 func main() {
-	ExecuteStackPractice()
-	ExecuteStackPractice2()
+	// ==== Stack Practice ====
+	//ExecuteStackPractice()
+	//ExecuteStackPractice2()
+
+
+	// ==== Queue Practice ====
+	ExecuteQueuePractice1()
 }
