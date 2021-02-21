@@ -2,80 +2,64 @@ package MergeSort
 
 import (
 	"code/Sort"
-	"code/Sort/InsertSort"
 )
+
+const (
+	threshold = 30
+)
+
+func swap(arr []int, n int, m int) {
+	temp := arr[n]
+	arr[n] = arr[m]
+	arr[m] = temp
+}
+
+func insertSort(arr []int, lo int, hi int) {
+	for i := lo + 1; i < hi; i++ {
+		for j := i; j > lo && arr[j] < arr[j-1]; j-- {
+			swap(arr, j, j-1)
+		}
+	}
+}
 
 func MergeSort(arr []int) error {
 	if arr == nil {
 		return Sort.ErrArrIsNil
 	}
-	mergeSortWithInsert(arr, 0, len(arr))
+	mergeSort(arr, 0, len(arr))
 	return nil
-}
-
-
-func merge(arr []int, lo int, mi int, hi int) {
-	currArr := arr[lo:hi]
-
-	lLen := mi - lo
-	lPart := make([]int, lLen)
-	for i := 0; i < lLen; i++ {
-		lPart[i] = currArr[i]
-	}
-	rLen := hi - mi
-	rPart := arr[mi:]
-	var (
-		l = 0
-		r = 0
-		c = 0
-	)
-	for l < lLen && r < rLen {
-		lVal := lPart[l]
-		rVal := rPart[r]
-		if rVal <= lVal {
-			currArr[c] = lVal
-			l++
-		} else {
-			currArr[c] = rVal
-			r++
-		}
-		c++
-	}
-
-	for l < lLen {
-		currArr[c] = lPart[l]
-		l++
-		c++
-	}
-	for r < rLen {
-		currArr[c] = rPart[r]
-		r++
-		c++
-	}
-	lPart = nil
 }
 
 func mergeSort(arr []int, lo int, hi int) {
 	if (hi - lo) < 2 {
 		return
+	} else if hi-lo < threshold {
+		insertSort(arr, lo, hi)
 	}
-	mi := (hi + lo) / 2
+	mi := lo + (hi-lo)/2
 	mergeSort(arr, lo, mi)
 	mergeSort(arr, mi, hi)
 	merge(arr, lo, mi, hi)
 }
 
-func mergeSortWithInsert(arr []int, lo int, hi int) {
-	if (hi - lo) < 2 {
-		return
-	} else if (hi - lo) < 10 {
-		//println("use insert sort")
-		_ = InsertSort.InsertSort(arr[lo:hi])
-		return
+func merge(arr []int, lo int, mi int, hi int) {
+	lLength := mi - lo
+	lPart := make([]int, lLength, lLength)
+	for i := 0; i < lLength; i++ {
+		lPart[i] = arr[lo+i]
 	}
-
-	mi := (hi + lo) / 2
-	mergeSortWithInsert(arr, lo, mi)
-	mergeSortWithInsert(arr, mi, hi)
-	merge(arr, lo, mi, hi)
+	l, r, c := 0, mi, lo
+	for ; l < lLength && r < hi; c++ {
+		if lPart[l] <= arr[r] {
+			arr[c] = lPart[l]
+			l++
+		} else if arr[r] < lPart[l] {
+			arr[c] = arr[r]
+			r++
+		}
+	}
+	for ; c < hi && l < lLength; c++ {
+		arr[c] = lPart[l]
+		l++
+	}
 }

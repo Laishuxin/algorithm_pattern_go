@@ -1,25 +1,26 @@
 package ShellSort
 
-import "code/Sort"
-
-func ShellSort(arr []int) error {
-	if arr == nil {
-		return Sort.ErrArrIsNil
-	}
-	if len(arr) <= 1 {
-		return nil
-	}
-	shellSort(arr)
-	return nil
+func swap(arr []int, n int, m int) {
+	temp := arr[n]
+	arr[n] = arr[m]
+	arr[m] = temp
 }
-
-func shellSort(arr []int) {
+func ShellSort(arr []int) {
+	if arr == nil {
+		return
+	}
 	length := len(arr)
-	for step:=length; step >= 1; step /= 2 {
-		// 对步长轴每一个元素进行处理
-		for i := 0; i < step; i++ {
-			shellSortJumpInsertSort(arr, i, length, step)
+	h := 1
+	for h < length/3 {
+		h = h*3 + 1
+	}
+	for h >= 1 {
+		for i := h; i < length; i += h {
+			for j := i; j >= h && arr[j] < arr[j-h]; j -= h {
+				swap(arr, j, j-h)
+			}
 		}
+		h = h / 3
 	}
 }
 
