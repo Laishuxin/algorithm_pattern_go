@@ -2,11 +2,22 @@ package QuickSort
 
 import (
 	"fmt"
+	"math/rand"
+	"sort"
 	"testing"
 )
 
-func TestQuickSort1(t *testing.T) {
-	arr := []int{-1, 4, 1993, 2, -4, 5, -1}
+func TestQuickSort(t *testing.T) {
+	length := 600
+	arr := make([]int, length, length)
+	for i := 0; i < length; i++ {
+		arr[i] = rand.Int() % length
+	}
+
+	fmt.Printf("quicksort\n")
+	fmt.Printf("arr1 = %+v\n", arr)
+	fmt.Println("arr is sorted ? ", sort.IntsAreSorted(arr))
 	QuickSort(arr)
-	fmt.Println(arr)
+	fmt.Printf("arr1 = %+v\n", arr)
+	fmt.Println("arr is sorted ? ", sort.IntsAreSorted(arr))
 }
