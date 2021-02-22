@@ -22,6 +22,7 @@ func insertSort(arr []int, lo int, hi int) {
 	}
 }
 
+
 func MergeSort(arr []int) error {
 	if arr == nil {
 		return Sort.ErrArrIsNil
